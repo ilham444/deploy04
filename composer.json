@@ -2,11 +2,11 @@
     "name": "proyek/mendalami-rasa",
     "description": "Website untuk mendalami perasaan tanpa database.",
     "require-dev": {
-        "pestphp/pest": "^1.22" 
+        "pestphp/pest": "^1.22"
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/" 
+            "App\\": "src/"
         }
     },
     "autoload-dev": {
@@ -18,11 +18,11 @@
         "test": "./vendor/bin/pest"
     },
     "config": {
+        "platform": {
+            "php": "8.2"
+        },
         "allow-plugins": {
             "pestphp/pest-plugin": true
-        },
-        "platform": {
-            "php": "8.2" 
         }
     }
 }
