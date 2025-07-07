@@ -1,5 +1,5 @@
 # Gunakan base image resmi PHP 8.1 dengan server Apache
-FROM php:8.1-apache
+FROM php:8.2-apache
 
 # Set direktori kerja di dalam container
 WORKDIR /var/www/html
