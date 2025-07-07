@@ -1,20 +1,15 @@
-# Menggunakan base image Node.js versi 18-alpine (ringan)
-FROM node:18-alpine
+# Gunakan base image resmi PHP 8.1 dengan server Apache
+FROM php:8.1-apache
 
-# Menentukan direktori kerja di dalam container
-WORKDIR /app
+# Set direktori kerja di dalam container
+WORKDIR /var/www/html
 
-# Salin package.json dan package-lock.json untuk install dependencies
-COPY package*.json ./
+# Salin semua file dari folder proyek lokal ke direktori kerja di container
+COPY . /var/www/html/
 
-# Install hanya dependencies production untuk menjaga image tetap kecil
-RUN npm install --production
+# Apache secara default berjalan sebagai user `www-data`.
+# Kita perlu memastikan folder `data` bisa ditulisi oleh Apache
+# untuk menyimpan kiriman dari pengguna.
+RUN chown -R www-data:www-data /var/www/html/data
 
-# Salin semua file proyek ke dalam direktori kerja di container
-COPY . .
-
-# Memberi tahu Docker bahwa container akan listen di port 3000
-EXPOSE 3000
-
-# Perintah default yang akan dijalankan saat container dimulai
-CMD [ "node", "app.js" ]
+# Port 80 sudah diekspos oleh base image php:apache, jadi tidak perlu EXPOSE 80 lagi.
