@@ -1,0 +1,65 @@
+[
+  {
+    "id": "bahagia",
+    "nama": "Bahagia",
+    "emoji": "😊",
+    "kategori": "Rasa Positif",
+    "deskripsi": "Bahagia adalah keadaan emosi yang ditandai dengan perasaan senang, puas, dan gembira. Ini adalah momen di mana kita merasa hidup ini indah dan berharga.",
+    "kutipan": ["..."],
+    "aktivitas": ["..."]
+  },
+  {
+    "id": "syukur",
+    "nama": "Bersyukur",
+    "emoji": "🙏",
+    "kategori": "Rasa Positif",
+    "deskripsi": "Rasa syukur adalah emosi positif yang kuat, muncul dari kesadaran akan hal-hal baik dalam hidup, sekecil apapun itu. Ini adalah penangkal ketidakpuasan.",
+    "kutipan": ["..."],
+    "aktivitas": ["..."]
+  },
+  {
+    "id": "sedih",
+    "nama": "Sedih",
+    "emoji": "😢",
+    "kategori": "Rasa Sulit",
+    "deskripsi": "Kesedihan adalah respons alami terhadap kehilangan atau kekecewaan. Memberi ruang untuk merasakan kesedihan adalah bagian dari proses penyembuhan.",
+    "kutipan": ["..."],
+    "aktivitas": ["..."]
+  },
+  {
+    "id": "kecewa",
+    "nama": "Kecewa",
+    "emoji": "😞",
+    "kategori": "Rasa Sulit",
+    "deskripsi": "Kekecewaan muncul ketika harapan tidak sesuai dengan kenyataan. Ini adalah sinyal bahwa ada sesuatu yang penting bagi kita.",
+    "kutipan": ["..."],
+    "aktivitas": ["..."]
+  },
+  {
+    "id": "marah",
+    "nama": "Marah",
+    "emoji": "😠",
+    "kategori": "Rasa Sulit",
+    "deskripsi": "Kemarahan adalah emosi yang kuat yang muncul saat kita merasa terancam, frustrasi, atau tidak adil. Mengelolanya adalah kuncinya.",
+    "kutipan": ["..."],
+    "aktivitas": ["..."]
+  },
+  {
+    "id": "cemas",
+    "nama": "Cemas",
+    "emoji": "😟",
+    "kategori": "Rasa Cemas & Takut",
+    "deskripsi": "Kecemasan adalah perasaan khawatir atau takut tentang apa yang akan terjadi. Ini sering kali berfokus pada masa depan yang tidak pasti.",
+    "kutipan": ["..."],
+    "aktivitas": ["..."]
+  },
+  {
+    "id": "tenang",
+    "nama": "Tenang",
+    "emoji": "😌",
+    "kategori": "Rasa Netral & Tenang",
+    "deskripsi": "Tenang adalah keadaan damai, bebas dari gangguan atau kegelisahan. Ini adalah momen untuk menarik napas dan memulihkan energi.",
+    "kutipan": ["..."],
+    "aktivitas": ["..."]
+  }
+]
