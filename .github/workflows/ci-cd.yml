@@ -1,33 +1,17 @@
 name: CI/CD Pipeline Mendalami Rasa
 
-# Workflow ini akan berjalan setiap kali ada push ke branch 'main'
 on:
   push:
     branches: [ "main" ]
 
 jobs:
   build-and-push:
-    runs-on: ubuntu-latest # Jalankan di mesin virtual Ubuntu terbaru
+    runs-on: ubuntu-latest
 
     steps:
-      # Langkah 1: Checkout kode dari repositori
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      # Langkah 2: Setup PHP dengan Composer
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.1'
-          extensions: mbstring, pdo, sqlite # Ekstensi umum, bisa disesuaikan
-          coverage: none
-
-      # Langkah 3: Install dependencies via Composer
-      - name: Install dependencies
-        run: composer install --prefer-dist --no-progress
+      # ... langkah-langkah sebelumnya ...
 
       # Langkah 4: Jalankan Unit Test
-      # Ini adalah bagian "Unit test" dari requirement
       - name: Run unit tests
         run: ./vendor/bin/pest
 
@@ -35,14 +19,15 @@ jobs:
       - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          # PERBAIKAN: Hapus spasi di dalam kurung kurawal
+          username: ${{secrets.DOCKERHUB_USERNAME}}
+          password: ${{secrets.DOCKERHUB_TOKEN}}
 
       # Langkah 6: Build dan Push Docker image
-      # Ini adalah bagian "Build & Push" dari requirement
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/uas-pkpl-mendalami-rasa:latest # Ganti nama image sesuai keinginan
+          # PERBAIKAN: Hapus spasi di dalam kurung kurawal
+          tags: ${{secrets.DOCKERHUB_USERNAME}}/uas-pkpl-mendalami-rasa:latest
