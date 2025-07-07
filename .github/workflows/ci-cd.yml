@@ -1,50 +1,48 @@
-# File: .github/workflows/ci-cd.yml
+name: CI/CD Pipeline Mendalami Rasa
 
-# Nama workflow yang akan tampil di tab Actions GitHub
-name: PKPL CI/CD Pipeline
-
-# Pemicu: workflow ini berjalan setiap kali ada push ke branch 'main'
+# Workflow ini akan berjalan setiap kali ada push ke branch 'main'
 on:
   push:
     branches: [ "main" ]
 
-# Daftar pekerjaan (jobs) yang akan dijalankan
 jobs:
-  # Nama job, bisa apa saja
-  build-test-and-push:
-    # Menjalankan job di mesin virtual Ubuntu terbaru
-    runs-on: ubuntu-latest
-    
-    # Langkah-langkah yang dieksekusi
+  build-and-push:
+    runs-on: ubuntu-latest # Jalankan di mesin virtual Ubuntu terbaru
+
     steps:
-    # 1. Mengunduh kode dari repository
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      # Langkah 1: Checkout kode dari repositori
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    # 2. Setup Node.js untuk menjalankan unit test
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
+      # Langkah 2: Setup PHP dengan Composer
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          extensions: mbstring, pdo, sqlite # Ekstensi umum, bisa disesuaikan
+          coverage: none
 
-    # 3. Install dependencies dan jalankan unit test
-    - name: Run Unit Tests
-      run: |
-        npm install
-        npm test
+      # Langkah 3: Install dependencies via Composer
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
 
-    # 4. Login ke Docker Hub menggunakan secrets
-    - name: Login to Docker Hub
-      uses: docker/login-action@v2
-      with:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
+      # Langkah 4: Jalankan Unit Test
+      # Ini adalah bagian "Unit test" dari requirement
+      - name: Run unit tests
+        run: ./vendor/bin/pest
 
-    # 5. Build dan Push Docker image ke Docker Hub
-    - name: Build and push Docker image
-      uses: docker/build-push-action@v4
-      with:
-        context: .
-        push: true
-        # Format tag: <username-dockerhub>/<nama-image>:<tag>
-        tags: ${{ secrets.DOCKERHUB_USERNAME }}/uas-pkpl-perasaan:latest
+      # Langkah 5: Login ke Docker Hub
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # Langkah 6: Build dan Push Docker image
+      # Ini adalah bagian "Build & Push" dari requirement
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/uas-pkpl-mendalami-rasa:latest # Ganti nama image sesuai keinginan
