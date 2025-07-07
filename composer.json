@@ -1,10 +1,28 @@
 {
+    "name": "proyek/mendalami-rasa",
+    "description": "Website untuk mendalami perasaan tanpa database.",
     "require-dev": {
-        "pestphp/pest": "^3.8"
+        "pestphp/pest": "^1.22" 
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/" 
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "./vendor/bin/pest"
     },
     "config": {
         "allow-plugins": {
             "pestphp/pest-plugin": true
+        },
+        "platform": {
+            "php": "8.2" 
         }
     }
 }
