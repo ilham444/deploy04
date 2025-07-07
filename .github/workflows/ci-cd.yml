@@ -1,0 +1,50 @@
+# File: .github/workflows/ci-cd.yml
+
+# Nama workflow yang akan tampil di tab Actions GitHub
+name: PKPL CI/CD Pipeline
+
+# Pemicu: workflow ini berjalan setiap kali ada push ke branch 'main'
+on:
+  push:
+    branches: [ "main" ]
+
+# Daftar pekerjaan (jobs) yang akan dijalankan
+jobs:
+  # Nama job, bisa apa saja
+  build-test-and-push:
+    # Menjalankan job di mesin virtual Ubuntu terbaru
+    runs-on: ubuntu-latest
+    
+    # Langkah-langkah yang dieksekusi
+    steps:
+    # 1. Mengunduh kode dari repository
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # 2. Setup Node.js untuk menjalankan unit test
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    # 3. Install dependencies dan jalankan unit test
+    - name: Run Unit Tests
+      run: |
+        npm install
+        npm test
+
+    # 4. Login ke Docker Hub menggunakan secrets
+    - name: Login to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    # 5. Build dan Push Docker image ke Docker Hub
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v4
+      with:
+        context: .
+        push: true
+        # Format tag: <username-dockerhub>/<nama-image>:<tag>
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/uas-pkpl-perasaan:latest
